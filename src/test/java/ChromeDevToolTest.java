@@ -1,14 +1,12 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.devtools.Command;
 import org.openqa.selenium.devtools.Console;
-import org.openqa.selenium.devtools.Console.ConsoleMessage;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.network.Network;
 import org.openqa.selenium.devtools.security.Security;
@@ -60,6 +58,20 @@ public class ChromeDevToolTest {
             Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(),
             Optional.empty())));
+  }
+
+  @Test
+  public void navigateDifferentWindows() {
+    chromeDriver.get("https://www.google.com");
+    ChromeDriver newChromeWindow = (ChromeDriver) chromeDriver.switchTo().newWindow(WindowType.WINDOW);
+    newChromeWindow.get("https://youtube.com");
+  }
+
+  @Test
+  public void navigateDifferentTabs() {
+    chromeDriver.get("https://www.google.com");
+    ChromeDriver newChromeWindow = (ChromeDriver) chromeDriver.switchTo().newWindow(WindowType.TAB);
+    newChromeWindow.get("https://youtube.com");
   }
 
   @AfterClass
